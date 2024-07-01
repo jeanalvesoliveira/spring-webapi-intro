@@ -5,12 +5,21 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import com.example.demo.handler.CampoObrigatorioException;
 import com.example.demo.model.Usuario;
 
 @Repository
 public class UsuarioRepository {
 
 	public void save(Usuario usuario) {
+		// verificação de campos obrigatórios
+		if (usuario.getLogin() == null) {
+			throw new CampoObrigatorioException("login");
+		} else if (usuario.getSenha() == null) {
+			throw new CampoObrigatorioException("senha");
+		}
+		
+		// verificação de ID nulo
 		if (usuario.getId() == null) {
 			System.out.println("SAVE - Recebendo o usuário na camada de repositório");
 		} else {
